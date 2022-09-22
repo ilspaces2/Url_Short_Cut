@@ -17,7 +17,7 @@ public class SiteController {
     }
 
     @PostMapping("/registration")
-    public SiteResponseDto siteRegistration(@RequestBody @Valid SiteRegistrationDto site) {
-        return siteService.siteRegistration(site);
+    public SiteResponseDto registerSite(@RequestBody @Valid SiteRegistrationDto site) {
+        return siteService.registerSite(site);
     }
 }

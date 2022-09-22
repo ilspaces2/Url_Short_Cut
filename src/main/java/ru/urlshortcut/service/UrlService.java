@@ -15,8 +15,6 @@ import java.util.NoSuchElementException;
 @Service
 public class UrlService {
 
-    private final int wordLength = 8;
-
     private final UrlRepository urlRepository;
 
     private final WordGeneratorByAsciiTable wordGenerator;
@@ -26,7 +24,7 @@ public class UrlService {
         this.wordGenerator = wordGenerator;
     }
 
-    public CodeResponseDto urlRegistration(UrlRegistrationDto urlRegistration, Site site) {
+    public CodeResponseDto registerUrl(UrlRegistrationDto urlRegistration, Site site) {
         if (urlRepository.findUrlByUrl(urlRegistration.getUrl()).isPresent()) {
             throw new IllegalArgumentException("Url already registered.");
         }
@@ -36,7 +34,7 @@ public class UrlService {
         }
         var url = new Url();
         url.setUrl(urlRegistration.getUrl());
-        url.setCode(wordGenerator.generateWord(wordLength));
+        url.setCode(wordGenerator.generateWord());
         url.setSite(site);
         urlRepository.save(url);
         return new CodeResponseDto(url.getCode());
@@ -51,7 +49,7 @@ public class UrlService {
         return url.get().getUrl();
     }
 
-    public List<UrlStatisticResponseDto> urlStatistic(String login) {
+    public List<UrlStatisticResponseDto> statisticUrl(String login) {
         return urlRepository.findUrlBySiteLogin(login).stream()
                 .map(url ->
                         new UrlStatisticResponseDto(

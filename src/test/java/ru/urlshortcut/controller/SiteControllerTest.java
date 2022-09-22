@@ -33,7 +33,7 @@ class SiteControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         SiteResponseDto siteResponseDto = new SiteResponseDto(
                 true, "login", "pass");
-        when(siteService.siteRegistration(any())).thenReturn(siteResponseDto);
+        when(siteService.registerSite(any())).thenReturn(siteResponseDto);
         this.mockMvc.perform(post("/registration")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"site\":\"test.ru\"}")

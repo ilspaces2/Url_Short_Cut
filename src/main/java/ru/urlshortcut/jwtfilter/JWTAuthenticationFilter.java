@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.util.Date;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-import static ru.urlshortcut.jwtfilter.JWTConstants.HEADER_STRING;
-import static ru.urlshortcut.jwtfilter.JWTConstants.TOKEN_PREFIX;
 import static ru.urlshortcut.jwtfilter.JWTConstants.SECRET;
 import static ru.urlshortcut.jwtfilter.JWTConstants.EXPIRATION_TIME;
 
@@ -62,6 +60,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
-        res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        res.getWriter().println(token);
     }
 }

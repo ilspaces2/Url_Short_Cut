@@ -13,8 +13,6 @@ import java.util.NoSuchElementException;
 @Service
 public class SiteService {
 
-    private final int wordLength = 8;
-
     private final WordGeneratorByAsciiTable wordGenerator;
 
     private final SiteRepository siteRepository;
@@ -27,12 +25,12 @@ public class SiteService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public SiteResponseDto siteRegistration(SiteRegistrationDto siteRegistrationDto) {
+    public SiteResponseDto registerSite(SiteRegistrationDto siteRegistrationDto) {
         if (siteRepository.findSiteBySite(siteRegistrationDto.getSite()).isPresent()) {
             return new SiteResponseDto(false, "", "");
         }
-        String login = wordGenerator.generateWord(wordLength);
-        String password = wordGenerator.generateWord(wordLength);
+        String login = wordGenerator.generateWord();
+        String password = wordGenerator.generateWord();
         siteRepository.save(
                 new Site(
                         siteRegistrationDto.getSite(),

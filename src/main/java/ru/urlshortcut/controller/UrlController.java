@@ -26,8 +26,8 @@ public class UrlController {
     }
 
     @PostMapping("/convert")
-    public CodeResponseDto urlRegistration(Authentication auth, @RequestBody @Valid UrlRegistrationDto urlRegistrationDto) {
-        return urlService.urlRegistration(
+    public CodeResponseDto registerUrl(Authentication auth, @RequestBody @Valid UrlRegistrationDto urlRegistrationDto) {
+        return urlService.registerUrl(
                 urlRegistrationDto,
                 siteService.findSiteByLogin(auth.getName()));
     }
@@ -38,7 +38,7 @@ public class UrlController {
     }
 
     @GetMapping("/statistic")
-    public List<UrlStatisticResponseDto> urlStatistic(Authentication auth) {
-        return urlService.urlStatistic(auth.getName());
+    public List<UrlStatisticResponseDto> statisticUrl(Authentication auth) {
+        return urlService.statisticUrl(auth.getName());
     }
 }

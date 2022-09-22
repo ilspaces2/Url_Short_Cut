@@ -39,7 +39,7 @@ class UrlControllerTest {
     @Test
     @WithMockUser
     public void whenUrlRegistrationThenGetCode() throws Exception {
-        when(urlService.urlRegistration(any(), any())).thenReturn(new CodeResponseDto("genCode"));
+        when(urlService.registerUrl(any(), any())).thenReturn(new CodeResponseDto("genCode"));
         this.mockMvc.perform(post("/convert")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"url\":\"https://test.ru/test\"}")
@@ -65,7 +65,7 @@ class UrlControllerTest {
                 new UrlStatisticResponseDto("2 url", 0),
                 new UrlStatisticResponseDto("3 url", 10)
         );
-        when(urlService.urlStatistic(any())).thenReturn(urls);
+        when(urlService.statisticUrl(any())).thenReturn(urls);
         this.mockMvc.perform(get("/statistic"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo(mapper.writeValueAsString(urls))));

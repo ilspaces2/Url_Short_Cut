@@ -2,7 +2,7 @@ package ru.urlshortcut.util;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Класс генерирует слова по кодам из Ascii Table.
@@ -12,12 +12,23 @@ import java.util.Random;
 @Component
 public class WordGeneratorByAsciiTable {
 
-    private final Random randomNumber = new Random();
+    private static final int WORD_LENGTH = 8;
+
+    private final ThreadLocalRandom randomNumber = ThreadLocalRandom.current();
 
     public WordGeneratorByAsciiTable() {
     }
 
     public String generateWord(int wordLength) {
+        return generator(wordLength);
+
+    }
+
+    public String generateWord() {
+        return generator(WORD_LENGTH);
+    }
+
+    private String generator(int wordLength) {
         StringBuilder word = new StringBuilder();
         int exitLoop = 0;
         while (exitLoop < wordLength) {
